@@ -1,6 +1,5 @@
 package com.cryptogram.cryptogram.nft.fetcher.mandala;
 
-import com.cryptogram.cryptogram.nft.fetcher.kalamint.KalamintModel;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -40,7 +39,7 @@ public class MandalaService {
             // remove tokens that have "favicon" in their thumbnail uri.
             nfts = nfts
                     .stream()
-                    .filter(n -> !n.getThumbnail_uri().contains("favicon"))
+                    .filter(n -> n.getThumbnail_uri() != null && !n.getThumbnail_uri().contains("favicon"))
                     .collect(Collectors.toList());
 
             // set platform URL for each NFT, as Tezos Mandala doesn't have a dedicated page for each NFT.

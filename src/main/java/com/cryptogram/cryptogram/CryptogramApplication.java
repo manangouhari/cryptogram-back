@@ -19,7 +19,7 @@ public class CryptogramApplication {
 
 
 	@Scheduled(fixedDelay = 60 * 1000 * 5)
-	void someJob() throws IOException {
+	public void someJob() throws IOException {
 		System.out.println(new Date());
 	}
 

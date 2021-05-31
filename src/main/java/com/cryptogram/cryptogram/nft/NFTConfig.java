@@ -42,7 +42,7 @@ public class NFTConfig {
 //                                    nft.getUrlToPlatform(),
 //                                    nft.getName())
 //                    );
-                    System.out.println(nft);
+                    nftsForDB.add(nft.convertToNFT());
                 }
 
 
@@ -50,42 +50,27 @@ public class NFTConfig {
                 HashMap<String, Boolean> nftTracker = new HashMap<String, Boolean>();
 
                 for (KalamintModel nft : fetcher.fetchKalamintTokens(0)) {
-                    var kmNFT = new NFT("Kalamint",
-                            "https://cloudflare-ipfs.com/ipfs/%s".formatted(nft.getDisplay_uri().substring(7)),
-                            nft.getToken_id(),
-                            nft.convertTimestampToDateTime(),
-                            nft.getUrlToPlatform(),
-                            nft.getName());
+                    var kmNFT = nft.convertToNFT();
+
                     Boolean isNFTAlreadyAdded = nftTracker.getOrDefault("%s-%s".formatted(kmNFT.getName(), kmNFT.getResourceUrl()), false);
                     if (!isNFTAlreadyAdded) {
                         nftsForDB.add(kmNFT);
                         nftTracker.put("%s-%s".formatted(kmNFT.getName(), kmNFT.getResourceUrl()), true);
                     }
-                    System.out.println(nft);
                 }
 
                 nftTracker.clear();
 
 
                 for (BazaarModel nft : fetcher.fetchBazaarTokens(0)) {
-                    if(nft.getDisplay_uri() == "null") continue;
-
-//                nftsForDB.add(new NFT("BazaarMarket",
-//                        "https://cloudflare-ipfs.com/ipfs/%s".formatted(nft.getDisplay_uri().substring(7)),
-//                        nft.getToken_id(),
-//                        nft.convertTimestampToDateTime(),
-//                        nft.getUrlToPlatform(),
-//                        nft.getName()));
-                    System.out.println(nft.getDisplay_uri());
+                    if(nft.getDisplay_uri() == null) continue;
+                    nftsForDB.add(nft.convertToNFT());
                 }
 
-                for (MandalaModel nft : fetcher.fetchMandalaTokens(0))
-                    nftsForDB.add(new NFT("Mandala-Art",
-                            "https://cloudflare-ipfs.com/ipfs/%s".formatted(nft.getThumbnail_uri().substring(7)),
-                            nft.getToken_id(),
-                            nft.convertTimestampToDateTime(),
-                            nft.getUrlToPlatform(),
-                            nft.getName()));
+                for (MandalaModel nft : fetcher.fetchMandalaTokens(0)){
+                    nftsForDB.add(nft.convertToNFT());
+                }
+
 
 
                 repository.saveAll(nftsForDB);

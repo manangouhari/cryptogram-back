@@ -1,5 +1,7 @@
 package com.cryptogram.cryptogram.nft.fetcher.kalamint;
 
+import com.cryptogram.cryptogram.nft.NFT;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -66,6 +68,15 @@ public class KalamintModel {
 //        System.out.println(nft.name.equals(this.name) && nft.display_uri.equals(this.display_uri));
 //        return nft.name.equals(this.name) && nft.display_uri.equals(this.display_uri);
 //    }
+
+    public NFT convertToNFT(){
+        return new NFT("Kalamint",
+                "https://cloudflare-ipfs.com/ipfs/%s".formatted(this.getDisplay_uri().substring(7)),
+                this.getToken_id(),
+                this.convertTimestampToDateTime(),
+                this.getUrlToPlatform(),
+                this.getName());
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,7 @@
 package com.cryptogram.cryptogram.nft.fetcher.mandala;
 
+import com.cryptogram.cryptogram.nft.NFT;
+
 import java.time.LocalDateTime;
 
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
@@ -54,6 +56,15 @@ public class MandalaModel {
 
     public LocalDateTime convertTimestampToDateTime() {
         return LocalDateTime.parse(this.timestamp, ISO_ZONED_DATE_TIME);
+    }
+
+    public NFT convertToNFT(){
+        return new NFT("Mandala-Art",
+                this.getThumbnail_uri(),
+                this.getToken_id(),
+                this.convertTimestampToDateTime(),
+                this.getUrlToPlatform(),
+                this.getName());
     }
 
     @Override

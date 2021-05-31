@@ -1,5 +1,7 @@
 package com.cryptogram.cryptogram.nft.fetcher.hicetnunc;
 
+import com.cryptogram.cryptogram.nft.NFT;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -67,6 +69,15 @@ public class HicetnuncModel {
 
     public LocalDateTime convertTimestampToDateTime() {
         return LocalDateTime.parse(this.timestamp, ISO_ZONED_DATE_TIME);
+    }
+
+    public NFT convertToNFT() {
+        return new NFT("Hicetnunc",
+                        "https://cloudflare-ipfs.com/ipfs/%s".formatted(this.getArtifact_uri().substring(7)),
+                        this.getToken_id(),
+                        this.convertTimestampToDateTime(),
+                        this.getUrlToPlatform(),
+                        this.getName());
     }
 
     @Override
