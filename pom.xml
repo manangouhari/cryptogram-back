@@ -14,7 +14,7 @@
 	<name>cryptogram</name>
 	<description>A curated feed of beautiful cryptoart</description>
 	<properties>
-		<java.version>16 </java.version>
+		<java.version>16</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
