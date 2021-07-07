@@ -17,7 +17,7 @@ public class HicetnuncService {
     OkHttpClient client;
     JsonAdapter<List<HicetnuncModel>> adapter;
 
-    public HicetnuncService(OkHttpClient client, Moshi moshi){
+    public HicetnuncService(OkHttpClient client, Moshi moshi) {
         this.client = client;
 
         Type type = Types.newParameterizedType(List.class, HicetnuncModel.class);
@@ -27,14 +27,14 @@ public class HicetnuncService {
     }
 
 
-    public List<HicetnuncModel> getLatestTokens(int offset) throws IOException {
-        String API_URL = "https://api.better-call.dev/v1/contract/mainnet/" + this.contract+ "/tokens" + (offset > 0? "?offset=" +offset: "");
+    public List<HicetnuncModel> getLatestTokens(Long level) throws IOException {
+        String API_URL = "https://api.better-call.dev/v1/contract/mainnet/" + this.contract + "/tokens" + (level  > 0 ? "?min_level=" + level : "");
         Request request = new Request.Builder()
                 .url(API_URL)
                 .build();
 
         List<HicetnuncModel> nfts;
-        try(Response response = client.newCall(request).execute()) {
+        try (Response response = client.newCall(request).execute()) {
             nfts = adapter.fromJson(response.body().source());
 
             nfts = nfts
@@ -46,7 +46,7 @@ public class HicetnuncService {
                     })
                     .collect(Collectors.toList());
 
-            for(HicetnuncModel nft: nfts)
+            for (HicetnuncModel nft : nfts)
                 nft.setUrlToPlatform("https://www.hicetnunc.xyz/objkt/" + nft.getToken_id());
 
         }

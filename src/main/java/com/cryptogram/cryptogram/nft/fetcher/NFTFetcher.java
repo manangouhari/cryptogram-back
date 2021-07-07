@@ -23,23 +23,23 @@ public class NFTFetcher {
         this.moshi = moshi;
     }
 
-    public List<HicetnuncModel> fetchHicetnuncTokens(int offset) throws IOException {
+    public List<HicetnuncModel> fetchHicetnuncTokens(Long level) throws IOException {
         HicetnuncService henService = new HicetnuncService(client, moshi);
-        return henService.getLatestTokens(offset);
+        return henService.getLatestTokens(level);
     }
 
-    public List<MandalaModel> fetchMandalaTokens(int offset) throws IOException {
+    public List<MandalaModel> fetchMandalaTokens(Long level) throws IOException {
         MandalaService mandalaService = new MandalaService(client, moshi);
-        return mandalaService.getLatestTokens(offset);
+        return mandalaService.getLatestTokens(level);
     }
 
-    public List<KalamintModel> fetchKalamintTokens(int offset) throws IOException {
+    public List<KalamintModel> fetchKalamintTokens(Long level) throws IOException {
         KalamintService kalamintService = new KalamintService(client, moshi);
-        return kalamintService.getLatestTokens(offset);
+        return kalamintService.getLatestTokens(level);
     }
 
-    public List<BazaarModel> fetchBazaarTokens(int offset) throws IOException {
+    public List<BazaarModel> fetchBazaarTokens(Long level) throws IOException {
         BazaarService bazaarService = new BazaarService(client, moshi);
-        return bazaarService.getLatestTokens(offset);
+        return bazaarService.getLatestTokens(level);
     }
 }

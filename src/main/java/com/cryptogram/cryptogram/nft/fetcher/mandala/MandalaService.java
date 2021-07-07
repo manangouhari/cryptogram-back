@@ -26,8 +26,8 @@ public class MandalaService {
     }
 
 
-    public List<MandalaModel> getLatestTokens(int offset) throws IOException {
-        String API_URL = "https://api.better-call.dev/v1/contract/mainnet/" + this.contract+ "/tokens" + (offset > 0? "?offset=" +offset: "");
+    public List<MandalaModel> getLatestTokens(Long level) throws IOException {
+        String API_URL = "https://api.better-call.dev/v1/contract/mainnet/" + this.contract+ "/tokens" + (level > 0? "?min_level=" + level: "");
         Request request = new Request.Builder()
                 .url(API_URL)
                 .build();
